@@ -17,6 +17,7 @@ public class AssassinateSmokeyCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("assassinatesmokey")
+            .requires(source -> source.hasPermissionLevel(2))
             .then(literal("team")
                 .executes(ctx -> printTeam(ctx.getSource()))
                 .then(literal("assassin")
