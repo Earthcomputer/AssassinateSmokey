@@ -3,12 +3,10 @@
   "package": "net.earthcomputer.assassinatesmokey.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinScoreboard",
-    "MixinServerScoreboard",
     "MixinCommandManager",
-    "ScoreboardAccessor",
-    "ServerScoreboardAccessor",
-    "MixinCompassItem"
+    "MixinCompassItem",
+    "MixinServerWorld",
+    "MixinServerPlayerEntity"
   ],
   "client": [
   ],

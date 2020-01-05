@@ -36,10 +36,10 @@ public abstract class MixinCompassItem extends Item {
         tracker.nextPlayer();
         Optional<PlayerEntity> target = tracker.getTrackingPlayer();
         if (target.isPresent()) {
-            sendSubtitle(user, new LiteralText("Now tracking ").styled(s -> s.setColor(Formatting.AQUA)).append(target.get().getName()));
+            sendSubtitle(user, new LiteralText("Now tracking ").styled(s -> s.setColor(Formatting.GREEN)).append(target.get().getName()));
             sendSpawnPoint(user, new BlockPos(target.get()));
         } else {
-            sendSubtitle(user, new LiteralText("No longer tracking a player").styled(s -> s.setColor(Formatting.AQUA)));
+            sendSubtitle(user, new LiteralText("No longer tracking a player").styled(s -> s.setColor(Formatting.GREEN)));
             sendSpawnPoint(user, world.getSpawnPos());
         }
 

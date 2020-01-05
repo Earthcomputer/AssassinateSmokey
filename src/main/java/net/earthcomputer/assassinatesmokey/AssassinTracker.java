@@ -13,6 +13,7 @@ public class AssassinTracker {
     private final UUID player;
     private UUID trackingSpeedrunner;
     private final Queue<UUID> nextPlayers = new ArrayDeque<>();
+    private boolean frozen; // Let it go!
 
     private static Map<UUID, AssassinTracker> trackers = new HashMap<>();
 
@@ -61,4 +62,11 @@ public class AssassinTracker {
         return Optional.ofNullable(server.getPlayerManager().getPlayer(trackingSpeedrunner));
     }
 
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
+    }
 }
