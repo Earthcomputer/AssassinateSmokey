@@ -70,9 +70,7 @@ public abstract class MixinServerPlayNetworkHandler {
             ServerWorld world = server.getWorld(player.dimension);
             Entity victim = packet.getEntity(world);
             if (victim instanceof PlayerEntity && AssassUtil.isSpeedrunner((PlayerEntity) victim)) {
-                if (AssassinTracker.forPlayer(player).isFrozen())
-                    ci.cancel();
-                else
+                if (!AssassinTracker.forPlayer(player).isFrozen())
                     victim.damage(DamageSource.player(player), Float.MAX_VALUE);
             }
         }
