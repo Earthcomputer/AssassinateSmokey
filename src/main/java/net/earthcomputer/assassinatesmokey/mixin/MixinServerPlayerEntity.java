@@ -5,6 +5,7 @@ import net.earthcomputer.assassinatesmokey.AssassUtil;
 import net.earthcomputer.assassinatesmokey.AssassinTracker;
 import net.earthcomputer.assassinatesmokey.SpeedrunnerTracker;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -77,6 +78,23 @@ public abstract class MixinServerPlayerEntity extends PlayerEntity {
                 ((ServerWorld) world).spawnParticles((ServerPlayerEntity) player, DustParticleEffect.RED, true, x, y, z, 1, 0, 0, 0, 1);
             }
         }
+    }
+
+    @Inject(method = "copyFrom", at = @At(value = "FIELD", target = "Lnet/minecraft/server/network/ServerPlayerEntity;enchantmentTableSeed:I"))
+    private void onCopyPlayer(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+        if (alive)
+            return;
+
+        if (!AssassUtil.isAssassin(this))
+            return;
+
+        // check if we already have a compass
+        for (int i = 0; i < inventory.getInvSize(); i++) {
+            if (inventory.getInvStack(i).getItem() == Items.COMPASS)
+                return;
+        }
+
+        inventory.insertStack(new ItemStack(Items.COMPASS));
     }
 
 }

@@ -1,7 +1,8 @@
 package net.earthcomputer.assassinatesmokey;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.scoreboard.AbstractTeam;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +22,17 @@ public class AssassUtil {
 
     public static void setPlayerType(PlayerEntity player, PlayerType type) {
         playerTypes.put(player.getUuid(), type);
+        if (type == PlayerType.ASSASSIN) {
+            // check if there is already a compass
+            for (int i = 0; i < player.inventory.getInvSize(); i++) {
+                if (player.inventory.getInvStack(i).getItem() == Items.COMPASS)
+                    return;
+            }
+            player.inventory.insertStack(new ItemStack(Items.COMPASS));
+        }
     }
 
-    public static enum PlayerType {
+    public enum PlayerType {
         SPEEDRUNNER, ASSASSIN
     }
 
