@@ -6,7 +6,9 @@
     "MixinCommandManager",
     "MixinCompassItem",
     "MixinServerWorld",
-    "MixinServerPlayerEntity"
+    "MixinServerPlayerEntity",
+    "MixinServerPlayNetworkHandler",
+    "MixinEntityTrackerEntry"
   ],
   "client": [
   ],

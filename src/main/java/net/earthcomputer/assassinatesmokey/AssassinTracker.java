@@ -1,6 +1,7 @@
 package net.earthcomputer.assassinatesmokey;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 
@@ -8,6 +9,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class AssassinTracker {
+
+    public static final EntityAttributeModifier FREEZE_MODIFIER = new EntityAttributeModifier("Assassin Freeze", -1, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 
     private final MinecraftServer server;
     private final UUID player;
