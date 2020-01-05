@@ -5,6 +5,7 @@
   "mixins": [
     "MixinCommandManager",
     "MixinCompassItem",
+    "MixinEnderPearlItem",
     "MixinServerWorld",
     "MixinServerPlayerEntity",
     "MixinServerPlayNetworkHandler",
