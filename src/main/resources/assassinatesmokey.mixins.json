@@ -8,8 +8,7 @@
     "MixinEnderPearlItem",
     "MixinServerWorld",
     "MixinServerPlayerEntity",
-    "MixinServerPlayNetworkHandler",
-    "MixinEntityTrackerEntry"
+    "MixinServerPlayNetworkHandler"
   ],
   "client": [
   ],
