@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "assassinatesmokey",
+  "version": "${version}",
+
+  "name": "Assassinate Smokey",
+  "description": "This mod helps you to assassinate Smokey",
+  "authors": [
+    "Earthcomputer"
+  ],
+  "contact": {
+    "homepage": "https://earthcomputer.net/"
+  },
+
+  "license": "MIT",
+  "icon": "assets/assassinatesmokey/icon.png",
+
+  "environment": "*",
+  "mixins": [
+    "assassinatesmokey.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "minecraft": "1.15.x"
+  }
+}
