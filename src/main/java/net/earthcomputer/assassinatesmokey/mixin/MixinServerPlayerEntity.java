@@ -5,6 +5,7 @@ import net.earthcomputer.assassinatesmokey.AssassUtil;
 import net.earthcomputer.assassinatesmokey.AssassinTracker;
 import net.earthcomputer.assassinatesmokey.SpeedrunnerTracker;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -27,8 +28,28 @@ public abstract class MixinServerPlayerEntity extends PlayerEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         if (AssassUtil.isAssassin(this)) {
-            if (AssassinTracker.forPlayer(this).isFrozen()) {
+            AssassinTracker tracker = AssassinTracker.forPlayer(this);
+            if (tracker.isFrozen()) {
                 spawnFreezeParticle(this, getX(), getY() + getHeight() + 0.2, getZ());
+            }
+
+            if (!dimension.hasSkyLight()) {
+                if (getMainHandStack().getItem() == Items.COMPASS || getOffHandStack().getItem() == Items.COMPASS) {
+                    if (tracker.getTrackingPlayer().isPresent()) {
+                        Vec3d compassVec = new Vec3d(tracker.getTrackingPos().getX() - getX(), 0, tracker.getTrackingPos().getZ() - getZ())
+                                .normalize();
+                        for (int i = 1; i <= 5; i++) {
+                            if (Math.random() < 0.1)
+                                ((ServerWorld) world).spawnParticles((ServerPlayerEntity) (Object) this,
+                                        new DustParticleEffect(1, 1, 0, 1),
+                                        true,
+                                        getX() + compassVec.x * i,
+                                        getY() + 1,
+                                        getZ() + compassVec.z * i,
+                                        1, 0, 0, 0, 1);
+                        }
+                    }
+                }
             }
         } else {
             PlayerEntity assassin = SpeedrunnerTracker.forPlayer(this).getLookingAt();

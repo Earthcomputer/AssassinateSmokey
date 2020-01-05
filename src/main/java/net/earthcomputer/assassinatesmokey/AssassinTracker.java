@@ -1,9 +1,12 @@
 package net.earthcomputer.assassinatesmokey;
 
+import net.minecraft.client.network.packet.PlayerSpawnPositionS2CPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -16,6 +19,7 @@ public class AssassinTracker {
     private final UUID player;
     private UUID trackingSpeedrunner;
     private final Queue<UUID> nextPlayers = new ArrayDeque<>();
+    private BlockPos trackingPos;
     private boolean frozen; // Let it go!
 
     private static Map<UUID, AssassinTracker> trackers = new HashMap<>();
@@ -63,6 +67,15 @@ public class AssassinTracker {
         if (trackingSpeedrunner == null)
             return Optional.empty();
         return Optional.ofNullable(server.getPlayerManager().getPlayer(trackingSpeedrunner));
+    }
+
+    public void trackPosition(BlockPos pos) {
+        this.trackingPos = pos;
+        getPlayer().ifPresent(player -> ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlayerSpawnPositionS2CPacket(pos)));
+    }
+
+    public BlockPos getTrackingPos() {
+        return trackingPos;
     }
 
     public boolean isFrozen() {

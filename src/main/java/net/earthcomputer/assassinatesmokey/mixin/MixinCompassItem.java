@@ -2,7 +2,6 @@ package net.earthcomputer.assassinatesmokey.mixin;
 
 import net.earthcomputer.assassinatesmokey.AssassUtil;
 import net.earthcomputer.assassinatesmokey.AssassinTracker;
-import net.minecraft.client.network.packet.PlayerSpawnPositionS2CPacket;
 import net.minecraft.client.network.packet.TitleS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CompassItem;
@@ -37,10 +36,10 @@ public abstract class MixinCompassItem extends Item {
         Optional<PlayerEntity> target = tracker.getTrackingPlayer();
         if (target.isPresent()) {
             sendSubtitle(user, new LiteralText("Now tracking ").styled(s -> s.setColor(Formatting.GREEN)).append(target.get().getName()));
-            sendSpawnPoint(user, new BlockPos(target.get()));
+            tracker.trackPosition(new BlockPos(target.get()));
         } else {
             sendSubtitle(user, new LiteralText("No longer tracking a player").styled(s -> s.setColor(Formatting.GREEN)));
-            sendSpawnPoint(user, world.getSpawnPos());
+            tracker.trackPosition(world.getSpawnPos());
         }
 
         return TypedActionResult.success(user.getStackInHand(hand));
@@ -49,10 +48,5 @@ public abstract class MixinCompassItem extends Item {
     @Unique
     private void sendSubtitle(PlayerEntity player, Text text) {
         ((ServerPlayerEntity) player).networkHandler.sendPacket(new TitleS2CPacket(TitleS2CPacket.Action.ACTIONBAR, text, 10, 40, 10));
-    }
-
-    @Unique
-    private void sendSpawnPoint(PlayerEntity player, BlockPos spawnPoint) {
-        ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlayerSpawnPositionS2CPacket(spawnPoint));
     }
 }
