@@ -33,7 +33,7 @@ public class AssassUtil {
     }
 
     public enum PlayerType {
-        SPEEDRUNNER, ASSASSIN
+        SPEEDRUNNER, ASSASSIN, SEPCTATOR
     }
 
 }

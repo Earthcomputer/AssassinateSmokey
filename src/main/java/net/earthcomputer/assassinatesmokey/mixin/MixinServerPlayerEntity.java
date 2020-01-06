@@ -85,16 +85,15 @@ public abstract class MixinServerPlayerEntity extends PlayerEntity {
         if (alive)
             return;
 
-        if (!AssassUtil.isAssassin(this))
-            return;
+        if (AssassUtil.isAssassin(this)) {
+            // check if we already have a compass
+            for (int i = 0; i < inventory.getInvSize(); i++) {
+                if (inventory.getInvStack(i).getItem() == Items.COMPASS)
+                    return;
+            }
 
-        // check if we already have a compass
-        for (int i = 0; i < inventory.getInvSize(); i++) {
-            if (inventory.getInvStack(i).getItem() == Items.COMPASS)
-                return;
+            inventory.insertStack(new ItemStack(Items.COMPASS));
         }
-
-        inventory.insertStack(new ItemStack(Items.COMPASS));
     }
 
 }
