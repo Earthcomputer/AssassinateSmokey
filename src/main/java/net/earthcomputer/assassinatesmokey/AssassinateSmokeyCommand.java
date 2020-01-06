@@ -21,7 +21,7 @@ public class AssassinateSmokeyCommand {
             .then(literal("team")
                 .executes(ctx -> printTeam(ctx.getSource()))
                 .then(literal("spectator")
-                    .executes(ctx -> joinTeam(ctx.getSource(), AssassUtil.PlayerType.SEPCTATOR)))
+                    .executes(ctx -> joinTeam(ctx.getSource(), AssassUtil.PlayerType.SPECTATOR)))
                 .then(literal("assassin")
                     .executes(ctx -> joinTeam(ctx.getSource(), AssassUtil.PlayerType.ASSASSIN)))
                 .then(literal("speedrunner")

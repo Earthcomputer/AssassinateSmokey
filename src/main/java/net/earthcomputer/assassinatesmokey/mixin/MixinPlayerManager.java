@@ -17,7 +17,7 @@ public class MixinPlayerManager {
     private void onRespawnPlayer(ServerPlayerEntity oldPlayer, DimensionType dimension, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> ci) {
         if (!alive && AssassUtil.isSpeedrunner(oldPlayer)) {
             ci.getReturnValue().setGameMode(GameMode.SPECTATOR);
-            AssassUtil.setPlayerType(ci.getReturnValue(), AssassUtil.PlayerType.SEPCTATOR);
+            AssassUtil.setPlayerType(ci.getReturnValue(), AssassUtil.PlayerType.SPECTATOR);
         }
     }
 

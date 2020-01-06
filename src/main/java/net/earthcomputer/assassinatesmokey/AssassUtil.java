@@ -13,11 +13,11 @@ public class AssassUtil {
     private static final Map<UUID, PlayerType> playerTypes = new HashMap<>();
 
     public static boolean isSpeedrunner(PlayerEntity player) {
-        return playerTypes.computeIfAbsent(player.getUuid(), k -> PlayerType.SPEEDRUNNER) == PlayerType.SPEEDRUNNER;
+        return playerTypes.computeIfAbsent(player.getUuid(), k -> PlayerType.SPECTATOR) == PlayerType.SPEEDRUNNER;
     }
 
     public static boolean isAssassin(PlayerEntity player) {
-        return playerTypes.computeIfAbsent(player.getUuid(), k -> PlayerType.SPEEDRUNNER) == PlayerType.ASSASSIN;
+        return playerTypes.computeIfAbsent(player.getUuid(), k -> PlayerType.SPECTATOR) == PlayerType.ASSASSIN;
     }
 
     public static void setPlayerType(PlayerEntity player, PlayerType type) {
@@ -33,7 +33,7 @@ public class AssassUtil {
     }
 
     public enum PlayerType {
-        SPEEDRUNNER, ASSASSIN, SEPCTATOR
+        SPEEDRUNNER, ASSASSIN, SPECTATOR
     }
 
 }
