@@ -39,7 +39,7 @@ public abstract class MixinCompassItem extends Item {
             tracker.trackPosition(new BlockPos(target.get()));
         } else {
             sendSubtitle(user, new LiteralText("No longer tracking a player").styled(s -> s.setColor(Formatting.GREEN)));
-            tracker.trackPosition(world.getSpawnPos());
+            tracker.trackPosition(new BlockPos(world.getLevelProperties().getSpawnX(), world.getLevelProperties().getSpawnY(), world.getLevelProperties().getSpawnZ()));
         }
 
         return TypedActionResult.success(user.getStackInHand(hand));
