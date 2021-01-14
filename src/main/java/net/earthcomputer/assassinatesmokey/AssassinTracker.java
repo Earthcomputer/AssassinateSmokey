@@ -1,8 +1,8 @@
 package net.earthcomputer.assassinatesmokey;
 
-import net.minecraft.client.network.packet.PlayerSpawnPositionS2CPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.s2c.play.PlayerSpawnPositionS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -68,7 +68,7 @@ public class AssassinTracker {
 
     public void trackPosition(BlockPos pos) {
         this.trackingPos = pos;
-        getPlayer().ifPresent(player -> ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlayerSpawnPositionS2CPacket(pos)));
+        getPlayer().ifPresent(player -> ((ServerPlayerEntity) player).networkHandler.sendPacket(new PlayerSpawnPositionS2CPacket(pos, 0)));
     }
 
     public BlockPos getTrackingPos() {

@@ -17,7 +17,7 @@ public class MixinCommandManager {
     @Shadow @Final private CommandDispatcher<ServerCommandSource> dispatcher;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onRegisterCommands(boolean isDedicatedServer, CallbackInfo ci) {
+    private void onRegisterCommands(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
         AssassinateSmokeyCommand.register(this.dispatcher);
     }
 

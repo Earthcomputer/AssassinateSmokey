@@ -49,7 +49,7 @@ public class SpeedrunnerTracker {
         }
         PlayerEntity player = optionalPlayer.get();
 
-        HitResult blockHitResult = player.rayTrace(DISTANCE, 1, false);
+        HitResult blockHitResult = player.raycast(DISTANCE, 1, false);
         double maxDistanceSq = player.getCameraPosVec(1).squaredDistanceTo(blockHitResult.getPos());
         Vec3d cameraVec = player.getRotationVec(1);
         Box box = player.getBoundingBox().stretch(cameraVec.multiply(DISTANCE)).expand(1, 1, 1);
@@ -76,9 +76,9 @@ public class SpeedrunnerTracker {
         double distanceLeftSq = maxDistanceSq;
         Entity resultEntity = null;
         Vec3d resultPos = null;
-        for (final Entity entity : world.getEntities(sourceEntity, box, predicate)) {
+        for (final Entity entity : world.getOtherEntities(sourceEntity, box, predicate)) {
             Box targetBox = entity.getBoundingBox().expand(entity.getTargetingMargin());
-            Optional<Vec3d> optionalRayTraceResult = targetBox.rayTrace(fromPos, toPos);
+            Optional<Vec3d> optionalRayTraceResult = targetBox.raycast(fromPos, toPos);
             if (targetBox.contains(fromPos)) {
                 if (distanceLeftSq < 0.0) {
                     continue;

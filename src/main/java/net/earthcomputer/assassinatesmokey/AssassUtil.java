@@ -24,11 +24,11 @@ public class AssassUtil {
         playerTypes.put(player.getUuid(), type);
         if (type == PlayerType.ASSASSIN) {
             // check if there is already a compass
-            for (int i = 0; i < player.inventory.getInvSize(); i++) {
-                if (player.inventory.getInvStack(i).getItem() == Items.COMPASS)
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                if (player.getInventory().getStack(i).getItem() == Items.COMPASS)
                     return;
             }
-            player.inventory.insertStack(new ItemStack(Items.COMPASS));
+            player.getInventory().insertStack(new ItemStack(Items.COMPASS));
         }
     }
 
